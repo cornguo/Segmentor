@@ -156,9 +156,6 @@ class WordPos(tuple):
 		else:
 			return WordPos.format%(self)
 
-	def __repr__(self, encoding="UTF-8"):
-		return self.__str__()
-
 	def __getattr__(self, name):
 		if name=='word':
 			return self[0]
@@ -171,13 +168,9 @@ class Sentence(StructList):
 		super(StructList,self).__init__(data)
 
 	def __str__(self):
-		L=[x.__repr__() for x in self]
-		print(L)
+		L=[x for x in self]
 		str=Sentence.boundary.join(L)
 		return str
-
-	def __repr__(self, encoding="UTF-8"):
-		return self.__str__()
 	
 if __name__=="__main__":
 	a=Word(u'中文')

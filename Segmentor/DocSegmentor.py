@@ -87,7 +87,7 @@ class DocPOSTagger(POSTagger):
 
 	def _sent_postag_callback(self, m):
 		tagged_sent=self.procSentStr(m.group(0))
-		out_buf=tagged_sent.__str__()
+		out_buf=str(tagged_sent)
 		return out_buf
 
 	def _region_callback(self, m):
@@ -159,18 +159,18 @@ class DocSegmentor(Segmentor):
 
 	def _sent_segment_callback(self, m):
 		seged_sent=self.procSent(m.group(0))
-		out_buf=seged_sent.__str__()
+		out_buf=str(seged_sent)
 		return out_buf
 
 	def _sent_segment_postag_callback(self, m):
 		seged_sent=self.procSent(m.group(0))
 		tagged_sent=self.POSTagger.procSent(seged_sent)
-		out_buf=tagged_sent.__str__()
+		out_buf=tagged_sent.decode()
 		return out_buf
 
 	def _sent_postag_callback(self, m):
 		tagged_sent=self.POSTagger.procSentStr(m.group(0))
-		out_buf=tagged_sent.__str__()
+		out_buf=tagged_sent.decode()
 		return out_buf
 
 	def _region_callback(self, m):
