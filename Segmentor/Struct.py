@@ -168,7 +168,7 @@ class Sentence(StructList):
 		super(StructList,self).__init__(data)
 
 	def __str__(self):
-		L=[x for x in self]
+		L=[x.__str__() for x in self]
 		str=Sentence.boundary.join(L)
 		return str
 	
