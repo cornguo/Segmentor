@@ -84,7 +84,7 @@ class POSTagger(object):
 		##get features for labeling
 		token_features = self.__generateFeatures(tokens)
 		for fea in token_features:
-			x=(fea[0]+" "+string.join(fea[1]," ")).encode("UTF-8")
+			x=(fea[0]+" "+" ".join(fea[1]))
 			self.tagger.add(x)
 
 		self.tagger.parse()
@@ -105,7 +105,7 @@ class POSTagger(object):
 		   
 		result=[]
 		for data in tagged_tokens:
-			result.append((data[0].decode("UTF-8"),data[-1])) 
+			result.append((data[0],data[-1]))
 
 		return result
 
@@ -126,12 +126,12 @@ if __name__ == '__main__':
 
 	Tagger = POSTagger()
 	result = Tagger.procSentStr(u"這是 一 個 測試 。")
-	print " ".join(["%s(%s)" % data for data in result])
+	print (" ".join(["%s(%s)" % data for data in result]))
 
 	result = Tagger.procSent([u"這是",u"一", u"個", u"測試", u"。"])
-	print " ".join(["%s(%s)" % data for data in result])
+	print (" ".join(["%s(%s)" % data for data in result]))
 
 	result = Tagger.procSents([[u"這是",u"一", u"個", u"測試", u"。"], [u"這是",u"另", u"一", u"個", u"測試", u"。"]])
 	for sent in result:
-		print " ".join(["%s(%s)" % data for data in sent])
+		print (" ".join(["%s(%s)" % data for data in sent]))
 	

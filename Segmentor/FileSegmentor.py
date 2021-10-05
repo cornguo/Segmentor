@@ -24,8 +24,9 @@
 
 import os,re,sys
 import string
-from DocSegmentor import *
-from Struct import *
+from io import IOBase
+from .DocSegmentor import *
+from .Struct import *
 
 ## set ../Data directory as default model directory 
 
@@ -61,7 +62,7 @@ class FileSegmentor(DocSegmentor):
 
 		if infile=="-":
 			inf=sys.stdin
-		elif not isinstance(infile,file):
+		elif not isinstance(infile,IOBase):
 			inf=open(infile)
 		else:
 			inf=infile
@@ -73,21 +74,21 @@ class FileSegmentor(DocSegmentor):
 				parentdir=os.path.dirname(outfile)
 				if not os.path.exists(parentdir):
 					os.makedirs(parentdir)
-			outf=open(outfile,"w")
+			outf=open(outfile,"wb")
 		elif outfile=="-":
 			outf=sys.stdout
-		elif not isinstance(outfile,file):
-			outf=open(outfile,"w")
+		elif not isinstance(outfile,IOBase):
+			outf=open(outfile,"wb")
 		else:
 			outf=outfile
 
 		if not self.line_mode:
-			doc=inf.read().decode(self.encoding)
+			doc=inf.read().encode().decode(self.encoding)
 			seged_doc=self.procDoc(doc)
 			outf.write(seged_doc.encode(self.encoding))
 		else:
 			for line in inf:
-				line=line.decode(self.encoding)
+				line=line.encode().decode(self.encoding)
 				seged_line=self.procDoc(line)
 				outf.write(seged_line.encode(self.encoding))
 

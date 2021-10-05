@@ -24,8 +24,8 @@
 
 import os,re
 import string
-from DocSegmentor import *
-from Struct import *
+from .DocSegmentor import *
+from .Struct import *
 
 ## set ../Data directory as default model directory 
 
@@ -75,5 +75,5 @@ if __name__=="__main__":
 	a.setMask('<[^>]+>')
 	a.setRegion(region_list=[u'<title>::</title>',u'<text>::</text>'])
 	xml_doc1=a.procJson(JsonObj, ['RawText'])
-	print json.dumps(xml_doc1,ensure_ascii=False, indent=4).encode("UTF-8")
+	print (json.dumps(xml_doc1,ensure_ascii=False,indent=4))
 

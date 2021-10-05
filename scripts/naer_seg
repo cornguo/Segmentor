@@ -84,10 +84,10 @@ def parseArg():
 
 	loc_encoding=locale.getdefaultlocale()[1]
 
-	options.boundary=options.boundary.decode("string_escape").decode(loc_encoding)
-	options.format=options.format.decode("string_escape").decode(loc_encoding)
-	options.region=[x.decode("string_escape").decode(loc_encoding) for x in options.region]
-	options.mask=[x.decode("string_escape").decode(loc_encoding) for x in options.mask]
+	options.boundary=options.boundary.encode().decode(loc_encoding)
+	options.format=options.format.encode().decode(loc_encoding)
+	options.region=[x.encode().decode(loc_encoding) for x in options.region]
+	options.mask=[x.encode().decode(loc_encoding) for x in options.mask]
 
 	if len(args)==0 and len(options.list)==0 and len(options.directory)==0:
 		parser.error('input file needed!')

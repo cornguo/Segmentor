@@ -36,7 +36,7 @@ Struct 及 StructList 分別繼承了 dict 及 list 兩個內建類別，並額
 
 	>>> x=Struct()
 	>>> x.data=10
-	>>> print x.dumpJson(indent=4)
+	>>> print (x.dumpJson(indent=4))
 	{
 		'data': 10
 	}
@@ -140,7 +140,7 @@ class StructList(list):
 		list.__init__(self, json.loads(string))
 
 
-class Word(unicode):
+class Word(str):
 	def __new__(cls, *args, **kw):
 		self=super(Word, cls).__new__(cls, *args, **kw)
 		return self
@@ -150,14 +150,14 @@ class WordPos(tuple):
 	def __new__(cls, word, pos=u''):
 		return tuple.__new__(cls, (word, pos))
 
-	def __unicode__(self):
+	def __str__(self):
 		if len(self[1])==0:
 			return "%s"%(self[0])
 		else:
 			return WordPos.format%(self)
 
-	def __str__(self, encoding="UTF-8"):
-		return self.__unicode__().encode(encoding)
+	def __repr__(self, encoding="UTF-8"):
+		return self.__str__()
 
 	def __getattr__(self, name):
 		if name=='word':
@@ -170,31 +170,32 @@ class Sentence(StructList):
 	def __init__(self, data=[]):
 		super(StructList,self).__init__(data)
 
-	def __unicode__(self):
-		L=[unicode(x) for x in self]
-		str=string.join(L,Sentence.boundary)
+	def __str__(self):
+		L=[x.__repr__() for x in self]
+		print(L)
+		str=Sentence.boundary.join(L)
 		return str
 
-	def __str__(self, encoding="UTF-8"):
-		return self.__unicode__().encode(encoding)
+	def __repr__(self, encoding="UTF-8"):
+		return self.__str__()
 	
 if __name__=="__main__":
 	a=Word(u'中文')
-	print "Word=",a
+	print ("Word=",a)
 
 	a=WordPos(word=u'中文',pos=u'Na')
 	b=WordPos(word=u'英文',pos=u'Na')
 
-	#print "WordPos.dumps()",a.dumps().encode("UTF-8")
-	print "WordPos",a
+	#print ("WordPos.dumps()",a.dumps().encode("UTF-8"))
+	print ("WordPos",a)
 	WordPos.format="%s/%s"
-	print "WordPos",a
+	print ("WordPos",a)
 
 	x=a
 	a=Sentence([a,b])
-	print "Sentence.dumps():",a.dumps().encode("UTF-8")
-	print "Sentence:",str(a)
-	print unicode(a).encode("UTF-8")
+	print ("Sentence.dumps():",a.dumps().encode("UTF-8"))
+	print ("Sentence:",str(a))
+	print (a)
 	Sentence.boundary="XXX"
-	print unicode(a).encode("UTF-8")
+	print (a)
 

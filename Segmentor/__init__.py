@@ -1,9 +1,9 @@
-from Struct import *
-from Tokenizer import *
-from Segmentor import *
-from POSTagger import *
-from DocSegmentor import *
-from FileSegmentor import *
+from .Struct import *
+from .Tokenizer import *
+from .Segmentor import *
+from .POSTagger import *
+from .DocSegmentor import *
+from .FileSegmentor import *
 
 __all__=[
 	"Tokenizer",
@@ -14,5 +14,3 @@ __all__=[
     "FileSegmentor",
     "FilePOSTagger",
 ]
-
-
